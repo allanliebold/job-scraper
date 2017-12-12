@@ -15,18 +15,21 @@ for url in job_page:
     page = requests.get(url)
     soup = BeautifulSoup(page.text, 'html.parser')
 
-    job_posting = soup.find_all('h2', attrs={'class': 'g-col10'}).text.strip()
+    job_posting = soup.find_all('h2', attrs={'class': 'g-col10'})
     print(job_posting)
     for text in job_posting:
         job_link = text.find_all('a')
 
+"""
     date_posted = soup.find_all('p', attrs={'class': '-posted-date g-col'})
     date = date_posted.text
     print(date)
+"""
 
-    with open('index.csv', 'a') as csv_file:
-        writer = csv.writer(csv_file)
-        writer.writerow([job_posting, date_posted, datetime.now()])
+
+with open('index.csv', 'a') as csv_file:
+    writer = csv.writer(csv_file)
+    writer.writerow([job_posting, datetime.now()])
 
 """
 div class="-job-summary "
